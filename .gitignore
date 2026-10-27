@@ -1,5 +1,5 @@
 node_modules/
-android/
+/android/
 *.jks
 *.keystore
 oyun/_s*.js
