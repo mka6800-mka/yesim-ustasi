@@ -684,10 +684,11 @@ function varyantSec(t){var o=urunTip(t),L=[0,0];VARYANT.forEach(function(V,i){if
 function urunGorsel(t,tur,g,kucuk,vr){var im=G['urun_'+t];if(!im)return null;var VR=vr?VARYANT[vr]:null,key=t+'|'+tur+'|'+Math.round(g*5)+(kucuk?'k':'')+(VR?'|'+vr:'');if(URUN_CACHE[key])return URUN_CACHE[key];
   var R=TUR[tur],ol=kucuk?Math.min(1,110/Math.max(im.width,im.height)):1,cv2=document.createElement('canvas');cv2.width=Math.max(1,Math.round(im.width*ol));cv2.height=Math.max(1,Math.round(im.height*ol));var x=cv2.getContext('2d',{willReadFrequently:true});x.drawImage(im,0,0,cv2.width,cv2.height);
   var d;try{d=x.getImageData(0,0,cv2.width,cv2.height);}catch(e){return null;}var p=d.data,W=cv2.width,H=cv2.height,tohum=tur*31+7;
-  for(var i=0;i<p.length;i+=4){if(p[i+3]<8)continue;var r=p[i],gg=p[i+1],b=p[i+2],mx=Math.max(r,gg,b),mn=Math.min(r,gg,b),sat=mx?(mx-mn)/mx:0;if(sat>0.2||mx<70){if(VR&&sat>0.2&&mx>=40)metalBoya(p,i,VR);continue;}
+  for(var i=0;i<p.length;i+=4){if(p[i+3]<8)continue;var r=p[i],gg=p[i+1],b=p[i+2],mx=Math.max(r,gg,b),mn=Math.min(r,gg,b),sat=mx?(mx-mn)/mx:0;var hu=renkTon(r,gg,b),yesimPx=sat<=0.2||(sat<0.42&&hu>=60&&hu<=210);  // açık yeşilimsi (seladon) yeşim de boyanır; altın ve kırmızı korunur
+    if(!yesimPx||mx<70){if(VR&&sat>0.2&&mx>=40)metalBoya(p,i,VR);continue;}
     var px=(i/4)%W,py=(i/4)/W|0,C1=R.c1,C2=R.c2;if(R.coklu){var nk=fbm(px/W*2.2+50,py/H*2.2+50,tohum,3);var pal=paletSec(R,nk);C1=pal[0];C2=pal[1];}
     var l=(r*0.3+gg*0.59+b*0.11)/255,dam=fbm(px/W*7,py/H*7,tohum+3,2)*0.25,gt=kis(g+(dam-0.12),0,1),
-      cr=lerp(C1[0],C2[0],gt),cg=lerp(C1[1],C2[1],gt),cb=lerp(C1[2],C2[2],gt),k=0.12+1.35*Math.pow(l,1.25),par=kis((l-0.88)/0.12,0,1)*0.7,w=1-kis((0.2-sat)/0.08,0,1);
+      cr=lerp(C1[0],C2[0],gt),cg=lerp(C1[1],C2[1],gt),cb=lerp(C1[2],C2[2],gt),k=0.12+1.2*Math.pow(l,1.35),par=kis((l-0.95)/0.05,0,1)*0.5,w=sat<=0.2?1-kis((0.2-sat)/0.08,0,1):0;
     var nr=lerp(cr*k,255,par),ng=lerp(cg*k,255,par),nb=lerp(cb*k,255,par);p[i]=lerp(nr,r,w);p[i+1]=lerp(ng,gg,w);p[i+2]=lerp(nb,b,w);}
   x.putImageData(d,0,0);URUN_CACHE[key]=cv2;return cv2;}
 function urunCiz(c,u,x,y,s){var gi=urunGorsel(u.t,u.tur,u.g,s<90,u.v);if(gi){var r=s*0.98/Math.max(gi.width,gi.height),w=gi.width*r,h=gi.height*r;c.drawImage(gi,x-w/2,y-h/2,w,h);return;}

@@ -7,13 +7,13 @@ from scipy import ndimage as nd
 SUT=SAT=6
 im=Image.open(sys.argv[1]).convert('RGB');A=np.asarray(im).astype(float);H,W,_=A.shape
 def magenta(a):r,g,b=a[...,0],a[...,1],a[...,2];return (r>140)&(b>140)&(g<0.65*np.minimum(r,b))
+def magentaGevsek(a):r,g,b=a[...,0],a[...,1],a[...,2];return (r>110)&(b>110)&(g<0.75*np.minimum(r,b))
 def kes(a,boy=360):
-  m=magenta(a);lab,_=nd.label(m);kenar=set(np.unique(np.concatenate([lab[0],lab[-1],lab[:,0],lab[:,-1]])))-{0}
-  obj=nd.binary_fill_holes(nd.binary_opening(~np.isin(lab,list(kenar)),iterations=1))|(~m&~np.isin(lab,list(kenar)))
-  obj&=~np.isin(lab,list(kenar))
+  m=magenta(a);m=nd.binary_dilation(m,iterations=1)&(magentaGevsek(a));obj=~m   # bütün pembe alanlar (iç boşluklar dahil) silinir
+  obj=nd.binary_opening(obj,iterations=1)
   lab2,n=nd.label(obj)
   if n==0:return None
-  sz=nd.sum(obj,lab2,range(1,n+1));obj=np.isin(lab2,[i+1 for i,v in enumerate(sz) if v>sz.max()*0.03])
+  sz=nd.sum(obj,lab2,range(1,n+1));obj=np.isin(lab2,[i+1 for i,v in enumerate(sz) if v>sz.max()*0.12])
   # keskin kenar: çok hafif yumuşatma, sonra eşik
   al=np.array(Image.fromarray((obj*255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.6))).astype(float)
   b=a.copy();ort=(b[...,0]+b[...,2])/2;tasma=np.clip((ort-b[...,1]-35)/70,0,1)*(al<255)   # pembe sızıntıyı temizle
