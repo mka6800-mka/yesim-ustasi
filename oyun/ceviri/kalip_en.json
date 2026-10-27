@@ -579,5 +579,8 @@
  "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • polish {2} • value ×{3}",
  "Kalıcı özellikler": "Permanent perks",
  "Reklamlı kesim hakkın bugünlük doldu. Yarın yine gel ya da başka ürün seç.": "You've used today's ad-cuts. Come back tomorrow or pick another piece.",
- "▶ her kesim reklamlı (+{0})": "▶ each cut needs an ad (+{0})"
+ "▶ her kesim reklamlı (+{0})": "▶ each cut needs an ad (+{0})",
+ "Bugünkü kör kutu sınırına ulaştın ({0}). Yarın yeniden açılır.": "You've reached today's mystery box limit ({0}). It resets tomorrow.",
+ "İçinden taş, ürün ya da para çıkar. Olasılıklar: taş {0}, ürün {1}, para {2}. Atölyen doluysa taşın yerine küçük bir para çıkar. Ortalamada ödediğinin biraz altını geri verir; şansına göre kâr ya da zarar edersin. Bugün {3} kutu daha alabilirsin.": "It contains a stone, a piece or money. Odds: stone {0}, piece {1}, money {2}. If your workshop is full, a small sum of money replaces the stone. On average it returns a little less than you pay; depending on luck you win or lose. You can buy {3} more boxes today.",
+ "Atölyen dolu olduğu için kutudaki taşı toptancı aldı: {0}": "Your workshop is full, so the wholesaler bought the stone from the box: {0}"
 }

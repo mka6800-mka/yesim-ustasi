@@ -579,5 +579,8 @@
  "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} см • полировка {2} • цена ×{3}",
  "Kalıcı özellikler": "Постоянные улучшения",
  "Reklamlı kesim hakkın bugünlük doldu. Yarın yine gel ya da başka ürün seç.": "Резы с рекламой на сегодня закончились. Возвращайся завтра или выбери другое изделие.",
- "▶ her kesim reklamlı (+{0})": "▶ каждый рез с рекламой (+{0})"
+ "▶ her kesim reklamlı (+{0})": "▶ каждый рез с рекламой (+{0})",
+ "Bugünkü kör kutu sınırına ulaştın ({0}). Yarın yeniden açılır.": "Дневной лимит слепых коробок исчерпан ({0}). Завтра снова можно.",
+ "İçinden taş, ürün ya da para çıkar. Olasılıklar: taş {0}, ürün {1}, para {2}. Atölyen doluysa taşın yerine küçük bir para çıkar. Ortalamada ödediğinin biraz altını geri verir; şansına göre kâr ya da zarar edersin. Bugün {3} kutu daha alabilirsin.": "Внутри камень, изделие или деньги. Шансы: камень {0}, изделие {1}, деньги {2}. Если мастерская полна, вместо камня выпадут небольшие деньги. В среднем возвращает чуть меньше, чем ты платишь; по удаче — выигрыш или проигрыш. Сегодня можно купить ещё коробок: {3}.",
+ "Atölyen dolu olduğu için kutudaki taşı toptancı aldı: {0}": "Мастерская полна, поэтому оптовик купил камень из коробки: {0}"
 }

@@ -579,5 +579,8 @@
  "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • pulido {2} • valor ×{3}",
  "Kalıcı özellikler": "Ventajas permanentes",
  "Reklamlı kesim hakkın bugünlük doldu. Yarın yine gel ya da başka ürün seç.": "Ya usaste los cortes con anuncio de hoy. Vuelve mañana o elige otra pieza.",
- "▶ her kesim reklamlı (+{0})": "▶ cada corte con anuncio (+{0})"
+ "▶ her kesim reklamlı (+{0})": "▶ cada corte con anuncio (+{0})",
+ "Bugünkü kör kutu sınırına ulaştın ({0}). Yarın yeniden açılır.": "Llegaste al límite diario de cajas misteriosas ({0}). Se reinicia mañana.",
+ "İçinden taş, ürün ya da para çıkar. Olasılıklar: taş {0}, ürün {1}, para {2}. Atölyen doluysa taşın yerine küçük bir para çıkar. Ortalamada ödediğinin biraz altını geri verir; şansına göre kâr ya da zarar edersin. Bugün {3} kutu daha alabilirsin.": "Contiene una piedra, una pieza o dinero. Probabilidades: piedra {0}, pieza {1}, dinero {2}. Si tu taller está lleno, en lugar de la piedra sale algo de dinero. De media devuelve un poco menos de lo que pagas; según tu suerte ganas o pierdes. Hoy puedes comprar {3} cajas más.",
+ "Atölyen dolu olduğu için kutudaki taşı toptancı aldı: {0}": "Tu taller está lleno: el mayorista compró la piedra de la caja: {0}"
 }

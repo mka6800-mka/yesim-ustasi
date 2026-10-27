@@ -579,5 +579,8 @@
  "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • Politur {2} • Wert ×{3}",
  "Kalıcı özellikler": "Dauerhafte Vorteile",
  "Reklamlı kesim hakkın bugünlük doldu. Yarın yine gel ya da başka ürün seç.": "Deine Werbe-Schnitte für heute sind aufgebraucht. Komm morgen wieder oder wähle ein anderes Stück.",
- "▶ her kesim reklamlı (+{0})": "▶ jeder Schnitt mit Werbung (+{0})"
+ "▶ her kesim reklamlı (+{0})": "▶ jeder Schnitt mit Werbung (+{0})",
+ "Bugünkü kör kutu sınırına ulaştın ({0}). Yarın yeniden açılır.": "Du hast das heutige Limit für Wundertüten erreicht ({0}). Morgen geht es weiter.",
+ "İçinden taş, ürün ya da para çıkar. Olasılıklar: taş {0}, ürün {1}, para {2}. Atölyen doluysa taşın yerine küçük bir para çıkar. Ortalamada ödediğinin biraz altını geri verir; şansına göre kâr ya da zarar edersin. Bugün {3} kutu daha alabilirsin.": "Darin ist ein Stein, ein Stück oder Geld. Chancen: Stein {0}, Stück {1}, Geld {2}. Ist deine Werkstatt voll, gibt es statt des Steins etwas Geld. Im Schnitt bekommst du etwas weniger zurück, als du zahlst; je nach Glück gewinnst oder verlierst du. Heute kannst du noch {3} Tüten kaufen.",
+ "Atölyen dolu olduğu için kutudaki taşı toptancı aldı: {0}": "Deine Werkstatt ist voll, also hat der Großhändler den Stein aus der Tüte gekauft: {0}"
 }

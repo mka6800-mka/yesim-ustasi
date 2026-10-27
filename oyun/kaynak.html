@@ -888,7 +888,7 @@ function dukkanTik(dt){if(!S.dukkan)return;if(S.yuk.eleman&&zaman-sonDiz>4){sonD
 // ================= REKLAM =================
 // Ödüllü reklam: Android sürümünde window.YesimReklam (AdMob köprüsü) varsa gerçek reklam gösterilir; web'de 5 sn bekleme ekranı.
 var REK_SINIR={reklamKes:15,yokken:1,elmas:3,kapali:1,hediye:1,cark:3,kutu:1,fener:5,usta:3,ikna:5,gece:1,yardim:1,fisilti:2};
-function gercekGunSifirla(){var b=bugun();if(S.rekTarih!==b){S.rekTarih=b;S.rek={};S.cark=0;S.kutu=0;}}
+function gercekGunSifirla(){var b=bugun();if(S.rekTarih!==b){S.rekTarih=b;S.rek={};S.cark=0;S.kutu=0;S.kutuAlinan=0;}}
 function rekVar(k){gercekGunSifirla();return ((S.rek||{})[k]||0)<(REK_SINIR[k]||1);}
 function reklamIzle(k,odul){if(!rekVar(k)){tost('Bu ödül için bugünkü reklam hakkın doldu.','kotu');return;}
   function ver(){S.rek[k]=(S.rek[k]||0)+1;kaydet();try{odul();}catch(e){}guncelUst();}
@@ -1190,21 +1190,27 @@ function carkOdul(o){var m='';S.ist.cark=(S.ist.cark||0)+1;if(o.m){var f=Math.ro
   else if(o.fener){S.ekFener=(S.ekFener||0)+o.fener;m='Bugün her taşa +'+o.fener+' fener hakkı.';}
   else if(o.kutu){kutuAc(true);return;}else if(o.urun){var u=rastgeleUrun();S.urunler.push(u);m='Ürün kazandın: '+TUR[u.tur].ad+' '+u.ad.toLowerCase()+' ('+para(u.deger)+').';}
   kaydet();tost('Çark: '+m,'iyi');sesCal(0.3,2200);}
-function rastgeleUrun(){var uy=URUN.filter(urunKullanilir),u=uy[Math.floor(Math.random()*uy.length)],B=BOLGE[Math.max(0,S.acik.lastIndexOf(true))],tur=agirlikSec(B.w,Math.random);
-  return {id:'u'+(S.idSay++),t:u.t,ad:u.ad,tur:tur,g:+(0.3+Math.random()*0.5).toFixed(3),deger:Math.round(olcek()*lerp(0.5,2.4,Math.random())*u.carp*yildizK()/10)*10};}
-function kutuFiyat(){return Math.round(olcek()*0.85/10)*10;}
-function kutuAc(bedava){var f=kutuFiyat();S.ist.kutu=(S.ist.kutu||0)+1;if(!bedava){if(S.para<f){tost('Yeterli paran yok.','kotu');return;}paraEkle(-f);S.ist.harcanan+=f;}
-  var r=Math.random(),baslik,ic;
-  if(r<0.55&&S.taslar.length<depoMax()){var b=S.bolge,seed=(Date.now()%2147483647)>>>0,sat=Math.floor(Math.random()*SATICI.length);var yeni={id:'t'+(S.idSay++),seed:seed,bolge:b,sat:sat,odenen:bedava?0:f,fener:[],fire:0};S.taslar.push(yeni);baslik='Kutudan bir taş çıktı!';ic=kucukTas(yeni,120);rozet();}
-  else if(r<0.85){var u=rastgeleUrun();S.urunler.push(u);baslik='Kutudan ürün çıktı: '+TUR[u.tur].ad+' '+u.ad.toLowerCase();ic=el('canvas');ic.width=200;ic.height=200;ic.style.width='100px';ic.style.height='100px';var x=ic.getContext('2d');x.scale(2,2);urunCiz(x,u,50,52,90);baslik+=' — '+para(u.deger);}
-  else{var p=Math.round(olcek()*lerp(0.5,3,Math.random())/10)*10;paraEkle(p);S.ist.kazanc+=p;baslik='Kutudan para çıktı: '+para(p);ic=null;}
+// kutu / çark ürünü: değeri ölçekle sınırlı (ortalama ≈ 0,8 × ölçek, en çok 1,6 ×); oyunu bozacak kadar cömert değil
+function rastgeleUrun(){var uy=URUN.filter(function(U){return urunKullanilir(U)&&!U.elmas;}),u=uy[Math.floor(Math.random()*uy.length)],B=BOLGE[Math.max(0,S.acik.lastIndexOf(true))],tur=agirlikSec(B.w,Math.random);
+  return {id:'u'+(S.idSay++),t:u.t,ad:u.ad,tur:tur,g:+(0.3+Math.random()*0.5).toFixed(3),deger:Math.round(olcek()*lerp(0.3,1.6,Math.pow(Math.random(),1.5))*yildizK()/10)*10};}
+// Kör kutu: beklenen getiri fiyatın biraz altında (~%95) — bazen büyük kazandırır, ortalamada kâr makinesi değildir. Günde en çok KUTU_GUN satın alma.
+var KUTU_GUN=8;
+var KUTU_K=[1.12,1.12,1.0,1.12,1.0,0.98,0.94,0.93];  // pazar başına fiyat katsayısı: beklenen getiri ≈ %90–95
+function kutuFiyat(){return Math.round(olcek()*KUTU_K[Math.max(0,S.acik.lastIndexOf(true))]/10)*10;}
+function kutuKalan(){gercekGunSifirla();return Math.max(0,KUTU_GUN-(S.kutuAlinan||0));}
+function kutuAc(bedava){var f=kutuFiyat();if(!bedava){if(kutuKalan()<=0){tost('Bugünkü kör kutu sınırına ulaştın ('+KUTU_GUN+'). Yarın yeniden açılır.','kotu');return;}if(S.para<f){tost('Yeterli paran yok.','kotu');return;}paraEkle(-f);S.ist.harcanan+=f;S.kutuAlinan=(S.kutuAlinan||0)+1;}
+  S.ist.kutu=(S.ist.kutu||0)+1;var r=Math.random(),baslik,ic,b=Math.max(0,S.acik.lastIndexOf(true));
+  if(r<0.5){if(S.taslar.length<depoMax()){var seed=(Date.now()%2147483647)>>>0,sat=Math.floor(Math.random()*SATICI.length);var yeni={id:'t'+(S.idSay++),seed:seed,bolge:b,sat:sat,odenen:bedava?0:f,fener:[],fire:0};S.taslar.push(yeni);baslik='Kutudan bir taş çıktı!';ic=kucukTas(yeni,120);rozet();}
+    else{var tp=Math.round(olcek()*lerp(0.4,1,Math.random())/10)*10;paraEkle(tp);S.ist.kazanc+=tp;baslik='Atölyen dolu olduğu için kutudaki taşı toptancı aldı: '+para(tp);ic=null;}}
+  else if(r<0.75){var u=rastgeleUrun();S.urunler.push(u);baslik='Kutudan ürün çıktı: '+TUR[u.tur].ad+' '+u.ad.toLowerCase();ic=el('canvas');ic.width=200;ic.height=200;ic.style.width='100px';ic.style.height='100px';var x=ic.getContext('2d');x.scale(2,2);urunCiz(x,u,50,52,90);baslik+=' — '+para(u.deger);}
+  else{var p=Math.round(olcek()*lerp(0.1,1.6,Math.pow(Math.random(),2))/10)*10;paraEkle(p);S.ist.kazanc+=p;baslik='Kutudan para çıktı: '+para(p);ic=null;}
   kaydet();sesCal(0.35,2000);perdeAc([el('h2',{},['Kör kutu']),el('p',{class:'not'},[baslik]),ic?el('div',{style:'display:grid;place-items:center;background:#2a1a12;border-radius:12px;padding:10px'},[ic]):null,el('div',{class:'satir',style:'margin-top:10px'},[el('button',{type:'button',on:{click:function(){perdeKapat();goster(S.ekran);}}},['Tamam'])])]);}
 function pazarUst(){var O=OLAY[S.olay]||OLAY.sakin;icerik.appendChild(el('div',{class:'olay'},[el('b',{},[O.ad+': ']),O.ac]));
   if(haftaSonu())icerik.appendChild(el('div',{class:'olay haftaSonu'},[el('b',{},['Hafta sonu çarşısı: ']),'kapalı taşlar %15 ucuz, günlük görev ödülleri iki kat.']));
   var h=el('div',{class:'hediye'},[
     el('button',{type:'button',class:hediyeHazir()?'btn-yesim':'',on:{click:function(){if(hediyeHazir())hediyeAc();else tost('Bugünkü hediyeni aldın. Yarın yine gel!');}}},['Günlük hediye',el('small',{},[hediyeHazir()?'hazır!':'yarın'])]),
     el('button',{type:'button',class:!S.cark?'btn-yesim':'',on:{click:carkAc}},['Şans çarkı',el('small',{},[(gercekGunSifirla(),!S.cark)?'bedava çevir':'reklamla çevir'])]),
-    el('button',{type:'button',on:{click:function(){perdeAc([el('h2',{},['Kör kutu']),el('p',{class:'not'},['İçinden taş, ürün ya da para çıkar. Olasılıklar: taş %55, ürün %30, para %15 (atölye doluysa ürün %85, para %15).']),el('div',{class:'satir'},[el('button',{type:'button',class:'btn-ana',on:{click:function(){kutuAc(false);}}},['Aç — '+para(kutuFiyat())]),rekBtn('kutu','Bedava aç',function(){kutuAc(true);})]),el('div',{class:'satir',style:'margin-top:8px'},[el('button',{type:'button',on:{click:perdeKapat}},['Kapat'])])]);}}},['Kör kutu',el('small',{},[para(kutuFiyat())])])]);
+    el('button',{type:'button',on:{click:function(){perdeAc([el('h2',{},['Kör kutu']),el('p',{class:'not'},['İçinden taş, ürün ya da para çıkar. Olasılıklar: taş %50, ürün %25, para %25. Atölyen doluysa taşın yerine küçük bir para çıkar. Ortalamada ödediğinin biraz altını geri verir; şansına göre kâr ya da zarar edersin. Bugün '+kutuKalan()+' kutu daha alabilirsin.']),el('div',{class:'satir'},[el('button',{type:'button',class:'btn-ana',disabled:kutuKalan()<=0,on:{click:function(){kutuAc(false);}}},['Aç — '+para(kutuFiyat())]),rekBtn('kutu','Bedava aç',function(){kutuAc(true);})]),el('div',{class:'satir',style:'margin-top:8px'},[el('button',{type:'button',on:{click:perdeKapat}},['Kapat'])])]);}}},['Kör kutu',el('small',{},[para(kutuFiyat())])])]);
   icerik.appendChild(h);gunlukBolum();elmasSerit();}
 
 // ================= GÜN SONU ÖZETİ =================

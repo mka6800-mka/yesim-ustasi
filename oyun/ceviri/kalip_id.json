@@ -579,5 +579,8 @@
  "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • poles {2} • nilai ×{3}",
  "Kalıcı özellikler": "Keuntungan permanen",
  "Reklamlı kesim hakkın bugünlük doldu. Yarın yine gel ya da başka ürün seç.": "Potongan dengan iklan hari ini sudah habis. Kembali besok atau pilih barang lain.",
- "▶ her kesim reklamlı (+{0})": "▶ tiap potong pakai iklan (+{0})"
+ "▶ her kesim reklamlı (+{0})": "▶ tiap potong pakai iklan (+{0})",
+ "Bugünkü kör kutu sınırına ulaştın ({0}). Yarın yeniden açılır.": "Batas kotak misteri hari ini tercapai ({0}). Besok bisa lagi.",
+ "İçinden taş, ürün ya da para çıkar. Olasılıklar: taş {0}, ürün {1}, para {2}. Atölyen doluysa taşın yerine küçük bir para çıkar. Ortalamada ödediğinin biraz altını geri verir; şansına göre kâr ya da zarar edersin. Bugün {3} kutu daha alabilirsin.": "Isinya batu, barang, atau uang. Peluang: batu {0}, barang {1}, uang {2}. Jika bengkelmu penuh, batu diganti sedikit uang. Rata-rata mengembalikan sedikit kurang dari yang kamu bayar; tergantung keberuntungan kamu untung atau rugi. Hari ini kamu masih bisa membeli {3} kotak.",
+ "Atölyen dolu olduğu için kutudaki taşı toptancı aldı: {0}": "Bengkelmu penuh, jadi pedagang grosir membeli batu dari kotak: {0}"
 }
