@@ -195,6 +195,7 @@ body.reklamsiz .btn-rek::before{content:"★"}
 .gunluk .gSatir.alindi{opacity:.55}.gunluk .cubuk{height:5px;border-radius:3px;background:rgba(255,255,255,.12);margin:4px 0 2px;overflow:hidden}.gunluk .cubuk i{display:block;height:100%;background:linear-gradient(90deg,#3fae6b,#9be38a)}
 #giris{position:fixed;inset:0;z-index:85;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:14px;padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px));background:#120b09 center/cover no-repeat;color:var(--fildisi);overflow-y:auto;transition:opacity .35s ease}
 #giris.kapan{opacity:0}#giris .gLogo{text-align:center;margin:auto 0 6px}#giris .gMuhur{width:72px;height:72px;line-height:72px;margin:0 auto 8px;border-radius:16px;font-size:50px;background:linear-gradient(180deg,#b8322a,#7d1f1a);color:#f6e1b5;box-shadow:0 6px 20px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.25)}
+#giris .gAmblem{display:block;width:150px;height:auto;margin:0 auto 6px;filter:drop-shadow(0 8px 18px rgba(0,0,0,.6))}
 #giris h1{margin:0;font-family:var(--f-bas);font-size:34px;color:#f3d79a;text-shadow:0 2px 10px rgba(0,0,0,.6)}#giris .gLogo p{margin:4px 0 0;opacity:.85}
 #giris .gKart{width:100%;max-width:440px;background:rgba(36,26,21,.92);border:1px solid rgba(231,194,125,.45);border-radius:18px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,.5)}
 #giris .gKart h2,#kagit .gKart h2{margin:0 0 4px}.gEtiket{display:block;font-size:13px;opacity:.85;margin:10px 0 5px}
@@ -486,7 +487,7 @@ var GORSEL_AD=['kabuk_0','kabuk_1','kabuk_2','kabuk_3','kabuk_4','kabuk_5','kabu
 ['kupe','yuzuk','kolye','bileklik','plaka','heykel','boncuk','kelebek','buda','muhur','kurbaga','kase','vazo','ejderha','firkete','yelpaze','balik','bambu','fincan','lotus','ruyi','demlik','aslan','at','satranc','gemi','anka','dag','oturanbuda','tac'].forEach(function(k){GORSEL_AD.push('urun_'+k);});  // son 8'i: görselleri gelince otomatik görünür
 ['lao','wen','bo','mei','han','cirak'].forEach(function(k){GORSEL_AD.push('kisi_'+k);});
 for(var gi=1;gi<=6;gi++)GORSEL_AD.push('musteri_'+gi);GORSEL_AD.push('kisi_satici');
-['sahne_pazar','sahne_dukkan','sahne_atolye','sahne_galeri','tezgah','elmas'].forEach(function(k){GORSEL_AD.push(k);});
+['sahne_pazar','sahne_dukkan','sahne_atolye','sahne_galeri','tezgah','elmas','logo'].forEach(function(k){GORSEL_AD.push(k);});
 ['elmas_100','elmas_550','elmas_1200','elmas_3000','haftalik_premium','reklamsiz','baslangic_paketi'].forEach(function(k){GORSEL_AD.push('paket_'+k);});  // görsel yoksa sade kart  // gelince sahneler gerçek görselle çizilir
 ['fener','su','taslama','testere','makine','depo','cila','pazarlik','cirak','vitrin','isik','tabela'].forEach(function(k){GORSEL_AD.push('ikon_'+k);});
 var KISI_AD=['lao','wen','bo','mei','han'];
@@ -1216,7 +1217,7 @@ function avatarSrc(k){var im=G[k]||G[AVATAR[0]];return im?im.src:'';}
 function adTemiz(a){return String(a||'').replace(/[<>{}\[\]\\\/"`]/g,'').replace(/\s+/g,' ').trim().slice(0,16);}
 function girisGoster(){if(window.__girisAtla)return girisSonrasi();if(!girisKutu){girisKutu=el('div',{id:'giris'});document.body.appendChild(girisKutu);}
   girisKutu.innerHTML='';girisKutu.hidden=false;var bg=G.sahne_pazar;if(bg)girisKutu.style.backgroundImage='linear-gradient(180deg,rgba(18,11,9,.35),rgba(18,11,9,.92) 70%),url('+bg.src+')';
-  var bas=el('div',{class:'gLogo'},[el('div',{class:'gMuhur'},['玉']),el('h1',{},['Yeşim Ustası']),el('p',{},['Taşı oku, kes, servetini bul.'])]);
+  var bas=el('div',{class:'gLogo'},[G.logo?el('img',{class:'gAmblem',src:G.logo.src,alt:''}):el('div',{class:'gMuhur'},['玉']),el('h1',{},['Yeşim Ustası']),el('p',{},['Taşı oku, kes, servetini bul.'])]);
   girisKutu.appendChild(bas);girisKutu.appendChild(S.profil?girisKart():kayitKart());if(DIL!=='tr'||GOLGE)cevirDugum(girisKutu);}
 function kayitKart(duzenle){var sec=(S.profil&&S.profil.avatar)||AVATAR[Math.floor(Math.random()*6)],inp=el('input',{type:'text',maxlength:'16',class:'gAd',placeholder:ceviri('Adın'),value:(S.profil&&S.profil.ad)||'',autocomplete:'off','aria-label':ceviri('Adın')});
   var izgara=el('div',{class:'gAvatarlar'});AVATAR.forEach(function(k){if(!G[k])return;var b=el('button',{type:'button',class:'gAv'+(k===sec?' secili':''),'aria-label':'Avatar',on:{click:function(){sec=k;izgara.querySelectorAll('.gAv').forEach(function(x){x.classList.remove('secili');});b.classList.add('secili');}}},[el('img',{src:G[k].src,alt:''})]);izgara.appendChild(b);});
