@@ -571,5 +571,11 @@
  "Kaydet": "Simpan",
  "Profili düzenle": "Ubah profil",
  "Profil güncellendi.": "Profil diperbarui.",
- "{0} • {1}": "{0} • {1}"
+ "{0} • {1}": "{0} • {1}",
+ "{0} kalıbı açıldı!": "Pola {0} terbuka!",
+ "Usta kalıpları": "Pola master",
+ "Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.": "Hanya yang membuka polanya bisa mengukir barang berharga ini. Pola bersifat permanen.",
+ "{0} 💎 ile kalıbı aç": "Buka pola seharga {0} 💎",
+ "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • poles {2} • nilai ×{3}",
+ "Kalıcı özellikler": "Keuntungan permanen"
 }

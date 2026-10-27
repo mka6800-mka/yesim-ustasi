@@ -571,5 +571,11 @@
  "Kaydet": "Save",
  "Profili düzenle": "Edit profile",
  "Profil güncellendi.": "Profile updated.",
- "{0} • {1}": "{0} • {1}"
+ "{0} • {1}": "{0} • {1}",
+ "{0} kalıbı açıldı!": "{0} pattern unlocked!",
+ "Usta kalıpları": "Master patterns",
+ "Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.": "Only players who unlock the pattern can carve these valuable pieces. Patterns are permanent.",
+ "{0} 💎 ile kalıbı aç": "Unlock pattern for {0} 💎",
+ "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • polish {2} • value ×{3}",
+ "Kalıcı özellikler": "Permanent perks"
 }

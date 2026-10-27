@@ -571,5 +571,11 @@
  "Kaydet": "Enregistrer",
  "Profili düzenle": "Modifier le profil",
  "Profil güncellendi.": "Profil mis à jour.",
- "{0} • {1}": "{0} • {1}"
+ "{0} • {1}": "{0} • {1}",
+ "{0} kalıbı açıldı!": "Modèle {0} débloqué !",
+ "Usta kalıpları": "Modèles de maître",
+ "Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.": "Seuls ceux qui débloquent le modèle peuvent tailler ces pièces précieuses. Le modèle est permanent.",
+ "{0} 💎 ile kalıbı aç": "Débloquer le modèle pour {0} 💎",
+ "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • polissage {2} • valeur ×{3}",
+ "Kalıcı özellikler": "Avantages permanents"
 }

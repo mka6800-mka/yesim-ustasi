@@ -172,6 +172,7 @@ body.reklamsiz .btn-rek::before{content:"★"}
 .sekmeler button.secili{background:linear-gradient(180deg,#e9c77f,#c8913a);color:#2a1a12;border-color:#8a5f22}
 .elmasIc{display:grid;gap:7px}.elmasIc h3{margin:8px 0 0}.elmasKart{align-items:center}.elmasKart .orta .alt{font-size:12.5px}.elmasKart.sahip{opacity:.75}
 .elmasKart.vurgu{border-color:rgba(150,220,255,.7);box-shadow:0 0 0 1px rgba(150,220,255,.35) inset}
+.kalipCip{border-style:dashed!important;border-color:rgba(150,220,255,.6)!important}
 .paketRes{width:52px;height:52px;object-fit:contain;flex:none}
 .olasLink{color:#9fdcff;text-decoration:underline;white-space:nowrap}
 .olasilik{display:grid;gap:4px;max-height:46vh;overflow:auto}.olasilik div{display:flex;justify-content:space-between;gap:10px;padding:5px 8px;border-radius:8px;background:rgba(0,0,0,.18)}
@@ -357,7 +358,7 @@ var CACHE={};
 // Gerçek görseller (ChatGPT ile üretildi, gorsel/ klasöründe). Yüklenemezse kodla çizime düşer.
 var GORSEL_AD=['kabuk_0','kabuk_1','kabuk_2','kabuk_3','kabuk_4','kabuk_5','kabuk_6','kabuk_7','kabuk_8','ic_tas','ic_tas_koyu'];
 ['imp','mor','uc','cam','mavi','buz','siyah','kizil','yag','elma','lav','fei','kar','kur'].forEach(function(k){GORSEL_AD.push('ic_'+k);});
-['kupe','yuzuk','kolye','bileklik','plaka','heykel','boncuk','kelebek','buda','muhur','kurbaga','kase','vazo','ejderha','firkete','yelpaze','balik','bambu','fincan','lotus','ruyi','demlik','aslan','at','satranc','gemi','anka','dag','oturanbuda','tac'].forEach(function(k){GORSEL_AD.push('urun_'+k);});  // son 8'i: görselleri gelince otomatik görünür
+['kupe','yuzuk','kolye','bileklik','plaka','heykel','boncuk','kelebek','buda','muhur','kurbaga','kase','vazo','ejderha','firkete','yelpaze','balik','bambu','fincan','lotus','ruyi','demlik','aslan','at','satranc','gemi','anka','dag','oturanbuda','tac','impyuzuk','boncukkolye','ejderbilezik','tavus','pagoda','kirin'].forEach(function(k){GORSEL_AD.push('urun_'+k);});  // son 8'i: görselleri gelince otomatik görünür
 ['lao','wen','bo','mei','han','cirak'].forEach(function(k){GORSEL_AD.push('kisi_'+k);});
 for(var gi=1;gi<=6;gi++)GORSEL_AD.push('musteri_'+gi);GORSEL_AD.push('kisi_satici');
 ['sahne_pazar','sahne_dukkan','sahne_atolye','sahne_galeri','tezgah','elmas','logo'].forEach(function(k){GORSEL_AD.push(k);});
@@ -413,8 +414,8 @@ function dokuKur(c,RW){var T=c.T,RH=Math.max(8,Math.round(RW*T.h/T.w)),K=KABUK[T
     var cr,cg,cb;if(dokuKab){var dk_=(y*RW+x)*4;cr=dokuKab[dk_]*(0.92+bit);cg=dokuKab[dk_+1]*(0.92+bit);cb=dokuKab[dk_+2]*(0.92+bit);}else{cr=K.renk[0]*(0.78+kum*0.42+bit);cg=K.renk[1]*(0.78+kum*0.42+bit);cb=K.renk[2]*(0.78+kum*0.42+bit);}
     if(T.catlak.length>=3&&catlakta(T,u,v,0.006)){cr*=0.5;cg*=0.48;cb*=0.45;}
     if(T.yosun&&!yosunDoku){var ys=fbm(u*3.2+40,v*3.2+40,T.seed%991,3);if(ys>0.56){var a=kis((ys-0.56)*5,0,0.75);cr=lerp(cr,58,a);cg=lerp(cg,92,a);cb=lerp(cb,48,a);}}
-    var kenarK=kis((rk-r)*45*Math.max(0.35,ol),0,1),spec=Math.pow(isik,9)*55;
-    D[k]=kis(cr*sh+spec,0,255);D[k+1]=kis(cg*sh+spec,0,255);D[k+2]=kis(cb*sh+spec,0,255);D[k+3]=255*kenarK;
+    var px_=(rk-r)*RW*0.5,kenarK=kis(px_*0.9,0,1),cerc=0.62+0.38*kis((px_-0.5)/2.5,0,1),spec=Math.pow(isik,9)*55;  // keskin kenar + ince koyu çerçeve
+    D[k]=kis((cr*sh+spec)*cerc,0,255);D[k+1]=kis((cg*sh+spec)*cerc,0,255);D[k+2]=kis((cb*sh+spec)*cerc,0,255);D[k+3]=255*kenarK;
     var jr,jg,jb;
     if(yesimMi(T,u,v)){var g=yogun(T,u,v),d=Math.hypot(u-T.cx,v-T.cy)/T.rad,par=0.86+0.28*(1-kis(d,0,1))+0.18*isik,dam=fbm(u*6,v*6,T.seed%977+9,3)*0.12;
       var C1=R.c1,C2=R.c2;if(R.coklu){var nk=fbm(u*1.9+50,v*1.9+50,T.seed%967+5,3);var pal=paletSec(R,nk);C1=pal[0];C2=pal[1];}
@@ -423,7 +424,7 @@ function dokuKur(c,RW){var T=c.T,RH=Math.max(8,Math.round(RW*T.h/T.w)),K=KABUK[T
     else if(dokuTas){var dt_=(y*RW+x)*4,tm=0.95+bit;jr=dokuTas[dt_]*tm;jg=dokuTas[dt_+1]*tm;jb=dokuTas[dt_+2]*tm;}
     else{var tn=fbm(u*9,v*9,T.seed%983+21,3);jr=tasRenk[0]*(0.8+tn*0.35);jg=tasRenk[1]*(0.8+tn*0.35);jb=tasRenk[2]*(0.8+tn*0.35);}
     if(catlakta(T,u,v,0.011)){jr*=0.45;jg*=0.38;jb*=0.3;}
-    var cil=0.82+0.3*isik;I[k]=kis(jr*cil,0,255);I[k+1]=kis(jg*cil,0,255);I[k+2]=kis(jb*cil,0,255);I[k+3]=255*kenarK;}
+    var cil=(0.82+0.3*isik)*cerc;I[k]=kis(jr*cil,0,255);I[k+1]=kis(jg*cil,0,255);I[k+2]=kis(jb*cil,0,255);I[k+3]=255*kenarK;}
   dx.putImageData(di,0,0);ix.putImageData(ii,0,0);
   var tmp=document.createElement('canvas');tmp.width=RW;tmp.height=RH;
   return {deri:deri,ic:ic,tmp:tmp,bir:null,RW:RW,RH:RH,surum:-1};}
@@ -753,10 +754,19 @@ var URUN=[
   {t:'anka',ad:'Anka kuşu heykeli',en:12,boy:18,sekil:'elips',carp:3.7,cila:19,yeni:1},
   {t:'dag',ad:'Dağ manzarası oyması',en:18,boy:22,sekil:'elips',carp:4.0,cila:21,yeni:1},
   {t:'oturanbuda',ad:'Oturan Buda heykeli',en:18,boy:24,sekil:'elips',carp:4.3,cila:23,yeni:1},
-  {t:'tac',ad:'İmparator tacı',en:22,boy:20,sekil:'elips',carp:4.8,cila:24,yeni:1}
+  {t:'tac',ad:'İmparator tacı',en:22,boy:20,sekil:'elips',carp:4.8,cila:24,yeni:1},
+  // elmasla açılan usta kalıpları (daha değerli)
+  {t:'impyuzuk',ad:'İmparator yüzüğü',en:2.2,boy:2.6,sekil:'elips',carp:3.4,cila:2,elmas:40,yeni:1},
+  {t:'boncukkolye',ad:'Yeşim boncuk kolye',en:5,boy:6,sekil:'elips',carp:3.7,cila:4,elmas:60,yeni:1},
+  {t:'ejderbilezik',ad:'Ejder bilezik',en:7.8,boy:7.8,sekil:'halka',ic:0.7,carp:4.2,cila:6,elmas:90,yeni:1},
+  {t:'tavus',ad:'Tavus kuşu heykeli',en:11,boy:15,sekil:'elips',carp:4.6,cila:9,elmas:120,yeni:1},
+  {t:'pagoda',ad:'Pagoda heykeli',en:10,boy:18,sekil:'dikdortgen',carp:5.0,cila:12,elmas:160,yeni:1},
+  {t:'kirin',ad:'Kirin heykeli',en:14,boy:14,sekil:'elips',carp:5.6,cila:15,elmas:220,yeni:1}
 ];
 function urunBul(t){return URUN.find(function(u){return u.t===t;});}
-function urunKullanilir(u){return S.yuk.cila>=u.cila&&(!u.yeni||!!G['urun_'+u.t]);}
+function kalipVar(u){return !u.elmas||!!(S.kalip&&S.kalip[u.t]);}
+function urunKullanilir(u){return S.yuk.cila>=u.cila&&kalipVar(u)&&(!u.yeni||!!G['urun_'+u.t]);}
+function kalipAl(U,sonra){if(!elmasHarca(U.elmas))return;S.kalip=S.kalip||{};S.kalip[U.t]=true;kaydet();tost(U.ad+' kalıbı açıldı!','iyi');if(sonra)sonra();}
 // --- yerleştirme ızgarası: 1 = kesilebilir yeşim (çatlak yok, kullanılmamış)
 var YER_CACHE={};
 function yerVeri(st){var T=kaplama(st).T,Z=izgara(T),key=st.id+'|'+(st.parcalar||[]).length;if(YER_CACHE[st.id]&&YER_CACHE[st.id].key===key)return YER_CACHE[st.id];
@@ -809,7 +819,9 @@ function parcaCiz(T,A,U,u,v,rot,renk,resim,kesik){if(!U)return;var o=izOlcu(T,U,
   if(resim){var gi=urunGorsel(U.t,T.tur,0.45);if(gi){cx.save();cx.translate(px,py);if(rot)cx.rotate(Math.PI/2);var w=rot?ry*2:rx*2,h=rot?rx*2:ry*2,r=Math.min(w/gi.width,h/gi.height)*1.05;cx.drawImage(gi,-gi.width*r/2,-gi.height*r/2,gi.width*r,gi.height*r);cx.restore();}}
   cx.save();cx.strokeStyle=renk;cx.lineWidth=1.6;cx.setLineDash(resim&&!kesik?[]:[4,3]);cx.beginPath();if(U.sekil==='dikdortgen')cx.rect(px-rx,py-ry,rx*2,ry*2);else{cx.ellipse(px,py,rx,ry,0,0,7);if(U.sekil==='halka'){cx.moveTo(px+rx*U.ic,py);cx.ellipse(px,py,rx*U.ic,ry*U.ic,0,0,7);}}cx.stroke();cx.restore();}
 function yerlesimPanel(st){var T=kaplama(st).T,Z=izgara(T),kutu=el('div',{class:'urunSec'});
-  URUN.forEach(function(U){if(U.yeni&&!G['urun_'+U.t])return;var acik=S.yuk.cila>=U.cila,c=urunResim({t:U.t,tur:T.tur,g:Z.ort},44,40);
+  URUN.forEach(function(U){if(U.yeni&&!G['urun_'+U.t])return;var c=urunResim({t:U.t,tur:T.tur,g:Z.ort},44,40);
+    if(!kalipVar(U)){kutu.appendChild(el('button',{type:'button',class:'urunCip kalipCip',on:{click:function(){kalipAl(U,atolyePanel);}}},[c,el('span',{},[el('b',{},[U.ad]),el('small',{},[U.en+'×'+U.boy+' cm • ',String(U.elmas)+' 💎 ile kalıbı aç'])])]));return;}
+    var acik=S.yuk.cila>=U.cila;
     var var_=acik&&(yerBul(st,U,0,3)||(U.en!==U.boy&&yerBul(st,U,1,3)));
     kutu.appendChild(el('button',{type:'button',class:'urunCip'+(yerSec===U.t?' secili':''),disabled:!acik,'aria-pressed':String(yerSec===U.t),on:{click:function(){yerSec=U.t;atolyePanel();}}},[c,el('span',{},[el('b',{},[U.ad]),el('small',{},[U.en+'×'+U.boy+' cm'+(!acik?' • cila '+U.cila:var_?'':' • sığmıyor')+(siparisVar(U.t,T.tur)?' • sipariş!':'')])])]));});
   return kutu;}
@@ -970,6 +982,10 @@ function elmasDukkan(sekme){dukkanSekme=sekme||dukkanSekme;var b=Math.max(0,S.ac
     GUC.forEach(function(g){var akt=g.aktif&&g.aktif();ic.appendChild(satir(g.ad+(g.k==='makine'&&gucSay('makine')?' ('+gucSay('makine')+')':''),[g.ac],akt?el('span',{class:'alt'},['Etkin']):elmasBtn(g.fiy,function(){if(!elmasHarca(g.fiy))return;g.al();kaydet();tost(g.ad+' kullanıldı.','iyi');elmasDukkan('guc');if(g.k==='pazar'&&S.ekran==='pazar')goster('pazar');},(S.elmas||0)<g.fiy)));});
     KESE.forEach(function(k){var m=Math.round(olcek()*k.m/10)*10;ic.appendChild(satir(k.ad,[para(m)+' kazanırsın.'],elmasBtn(k.fiy,function(){if(!elmasHarca(k.fiy))return;paraEkle(m);S.ist.kazanc+=m;kaydet();tost(k.ad+': '+para(m)+'.','iyi');elmasDukkan('guc');},(S.elmas||0)<k.fiy)));});}
   else if(dukkanSekme==='kalici'){
+    var KL=URUN.filter(function(U){return U.elmas&&G['urun_'+U.t];});
+    if(KL.length){ic.appendChild(el('h3',{},['Usta kalıpları']));ic.appendChild(el('p',{class:'not'},['Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.']));
+      KL.forEach(function(U){var v=kalipVar(U);ic.appendChild(satir(U.ad,[U.en+'×'+U.boy+' cm • cila '+U.cila+' • değer ×'+U.carp],v?el('span',{class:'alt'},['Sende ✓']):elmasBtn(U.elmas,function(){kalipAl(U,function(){elmasDukkan('kalici');});},(S.elmas||0)<U.elmas),v?'sahip':'',G['urun_'+U.t]));});
+      ic.appendChild(el('h3',{},['Kalıcı özellikler']));}
     KALICI.forEach(function(k){var var_=kalici(k.k);ic.appendChild(satir(k.ad,[k.ac],var_?el('span',{class:'alt'},['Sende ✓']):elmasBtn(k.fiy,function(){if(!elmasHarca(k.fiy))return;S.kalici=S.kalici||{};S.kalici[k.k]=true;kaydet();tost(k.ad+' artık kalıcı olarak sende.','iyi');elmasDukkan('kalici');},(S.elmas||0)<k.fiy),var_?'sahip':''));});}
   else{
     ic.appendChild(el('h3',{},['Elmas kazan']));

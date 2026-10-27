@@ -571,5 +571,11 @@
  "Kaydet": "Speichern",
  "Profili düzenle": "Profil bearbeiten",
  "Profil güncellendi.": "Profil aktualisiert.",
- "{0} • {1}": "{0} • {1}"
+ "{0} • {1}": "{0} • {1}",
+ "{0} kalıbı açıldı!": "Vorlage für {0} freigeschaltet!",
+ "Usta kalıpları": "Meistervorlagen",
+ "Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.": "Nur wer die Vorlage freischaltet, kann diese wertvollen Stücke schneiden. Vorlagen sind dauerhaft.",
+ "{0} 💎 ile kalıbı aç": "Vorlage für {0} 💎 freischalten",
+ "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • Politur {2} • Wert ×{3}",
+ "Kalıcı özellikler": "Dauerhafte Vorteile"
 }

@@ -571,5 +571,11 @@
  "Kaydet": "Guardar",
  "Profili düzenle": "Editar perfil",
  "Profil güncellendi.": "Perfil actualizado.",
- "{0} • {1}": "{0} • {1}"
+ "{0} • {1}": "{0} • {1}",
+ "{0} kalıbı açıldı!": "¡Molde de {0} desbloqueado!",
+ "Usta kalıpları": "Moldes de maestro",
+ "Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.": "Solo quien desbloquea el molde puede tallar estas piezas valiosas. El molde es permanente.",
+ "{0} 💎 ile kalıbı aç": "Desbloquear molde por {0} 💎",
+ "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • pulido {2} • valor ×{3}",
+ "Kalıcı özellikler": "Ventajas permanentes"
 }
