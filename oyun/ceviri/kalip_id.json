@@ -577,5 +577,7 @@
  "Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.": "Hanya yang membuka polanya bisa mengukir barang berharga ini. Pola bersifat permanen.",
  "{0} 💎 ile kalıbı aç": "Buka pola seharga {0} 💎",
  "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • poles {2} • nilai ×{3}",
- "Kalıcı özellikler": "Keuntungan permanen"
+ "Kalıcı özellikler": "Keuntungan permanen",
+ "Reklamlı kesim hakkın bugünlük doldu. Yarın yine gel ya da başka ürün seç.": "Potongan dengan iklan hari ini sudah habis. Kembali besok atau pilih barang lain.",
+ "▶ her kesim reklamlı (+{0})": "▶ tiap potong pakai iklan (+{0})"
 }

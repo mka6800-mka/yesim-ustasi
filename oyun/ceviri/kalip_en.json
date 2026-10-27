@@ -577,5 +577,7 @@
  "Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.": "Only players who unlock the pattern can carve these valuable pieces. Patterns are permanent.",
  "{0} 💎 ile kalıbı aç": "Unlock pattern for {0} 💎",
  "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • polish {2} • value ×{3}",
- "Kalıcı özellikler": "Permanent perks"
+ "Kalıcı özellikler": "Permanent perks",
+ "Reklamlı kesim hakkın bugünlük doldu. Yarın yine gel ya da başka ürün seç.": "You've used today's ad-cuts. Come back tomorrow or pick another piece.",
+ "▶ her kesim reklamlı (+{0})": "▶ each cut needs an ad (+{0})"
 }

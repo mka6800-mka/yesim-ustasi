@@ -577,5 +577,7 @@
  "Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.": "Nur wer die Vorlage freischaltet, kann diese wertvollen Stücke schneiden. Vorlagen sind dauerhaft.",
  "{0} 💎 ile kalıbı aç": "Vorlage für {0} 💎 freischalten",
  "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • Politur {2} • Wert ×{3}",
- "Kalıcı özellikler": "Dauerhafte Vorteile"
+ "Kalıcı özellikler": "Dauerhafte Vorteile",
+ "Reklamlı kesim hakkın bugünlük doldu. Yarın yine gel ya da başka ürün seç.": "Deine Werbe-Schnitte für heute sind aufgebraucht. Komm morgen wieder oder wähle ein anderes Stück.",
+ "▶ her kesim reklamlı (+{0})": "▶ jeder Schnitt mit Werbung (+{0})"
 }

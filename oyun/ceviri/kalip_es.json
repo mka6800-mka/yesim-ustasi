@@ -577,5 +577,7 @@
  "Bu değerli ürünleri yalnız kalıbını açanlar kesebilir. Kalıp kalıcıdır.": "Solo quien desbloquea el molde puede tallar estas piezas valiosas. El molde es permanente.",
  "{0} 💎 ile kalıbı aç": "Desbloquear molde por {0} 💎",
  "{0}×{1} cm • cila {2} • değer ×{3}": "{0}×{1} cm • pulido {2} • valor ×{3}",
- "Kalıcı özellikler": "Ventajas permanentes"
+ "Kalıcı özellikler": "Ventajas permanentes",
+ "Reklamlı kesim hakkın bugünlük doldu. Yarın yine gel ya da başka ürün seç.": "Ya usaste los cortes con anuncio de hoy. Vuelve mañana o elige otra pieza.",
+ "▶ her kesim reklamlı (+{0})": "▶ cada corte con anuncio (+{0})"
 }
