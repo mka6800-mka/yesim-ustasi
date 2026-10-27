@@ -1,0 +1,67 @@
+# Yeşim Ustası — Android derlemesi. Her main gönderiminde ve elle (Actions → Android derle → Run workflow) çalışır.
+# Çıktılar: test için APK (her zaman) ve Play Store için imzalı AAB (imza sırları tanımlıysa). Actions çalıştırmasının "Artifacts" bölümünden indirilir.
+# İsteğe bağlı sırlar (Settings → Secrets and variables → Actions):
+#   KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD   → yükleme anahtarı (Play Store AAB için gerekli)
+#   ADMOB_APP_ID, ADMOB_ODULLU_ID                                 → gerçek reklam kimlikleri (yoksa Google test reklamları)
+#   GIZLILIK_URL                                                  → gizlilik politikası adresi
+#   PLAY_GAMES_ID, PLAY_LIDER_ID                                  → Google Play Oyunlar proje kimliği ve sıralama (leaderboard) kimliği
+name: Android derle
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  derle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      ADMOB_APP_ID: ${{ secrets.ADMOB_APP_ID }}
+      ADMOB_ODULLU_ID: ${{ secrets.ADMOB_ODULLU_ID }}
+      GIZLILIK_URL: ${{ secrets.GIZLILIK_URL }}
+      PLAY_GAMES_ID: ${{ secrets.PLAY_GAMES_ID }}
+      PLAY_LIDER_ID: ${{ secrets.PLAY_LIDER_ID }}
+      SURUM_KODU: ${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: android-actions/setup-android@v3
+      - name: Paketler
+        run: |
+          npm install --no-audit --no-fund
+          # Play Oyunlar ayarlanmadıysa eklentiyi çıkar (proje kimliği olmadan açılışta hata verebilir)
+          if [ -z "$PLAY_GAMES_ID" ]; then npm uninstall @modbender/capacitor-play-games --no-audit --no-fund; fi
+      - name: Yükleme anahtarını aç
+        if: env.KEYSTORE_BASE64 != ''
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/yukleme.jks"
+          echo "KEYSTORE_PATH=$RUNNER_TEMP/yukleme.jks" >> "$GITHUB_ENV"
+      - name: Android projesi
+        run: |
+          npx cap add android
+          node scripts/android-hazirla.js
+          npx cap sync android
+      - name: Test APK
+        run: cd android && ./gradlew --no-daemon assembleDebug
+      - name: Play Store AAB (imzalı)
+        if: env.KEYSTORE_BASE64 != ''
+        run: cd android && ./gradlew --no-daemon bundleRelease
+      - uses: actions/upload-artifact@v4
+        with:
+          name: yesim-ustasi-apk
+          path: android/app/build/outputs/apk/debug/*.apk
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: env.KEYSTORE_BASE64 != ''
+        with:
+          name: yesim-ustasi-aab
+          path: android/app/build/outputs/bundle/release/*.aab
+          retention-days: 30

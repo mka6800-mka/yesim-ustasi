@@ -1,0 +1,9 @@
+{
+  "appId": "com.yesimustasi.oyun",
+  "appName": "Yeşim Ustası",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#5b1411",
+    "allowMixedContent": false
+  }
+}

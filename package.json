@@ -1,0 +1,22 @@
+{
+  "name": "yesim-ustasi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Yeşim Ustası — yeşim taşı oyunu (Android, Capacitor): isteğe bağlı reklam ve Google Play satın alma",
+  "scripts": {
+    "oyun": "cd oyun && python3 derle.py",
+    "android:hazirla": "node scripts/android-hazirla.js"
+  },
+  "dependencies": {
+    "@capacitor-community/admob": "^8.0.0",
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/haptics": "^8.0.0",
+    "@modbender/capacitor-play-games": "latest",
+    "@capgo/native-purchases": "^8.9.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.0"
+  }
+}
