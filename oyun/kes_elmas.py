@@ -24,5 +24,5 @@ for j in range(2):
   for i in range(4):
     x0,x1=round(W*i/4),round(W*(i+1)/4);y0,y1=round(H*j/2),round(H*(j+1)/2)
     o=kes(A[y0+4:y1-4,x0+4:x1-4]);
-    if o is not None:o.save('../gorsel/'+ADLAR[k]+'.webp','WEBP',quality=90,method=6);print(ADLAR[k],o.size)
+    if o is not None:o.save('../www/gorsel/'+ADLAR[k]+'.webp','WEBP',quality=90,method=6);print(ADLAR[k],o.size)
     k+=1

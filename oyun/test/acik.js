@@ -1,0 +1,11 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:380,height:760}});const hat=[];p.on('pageerror',e=>hat.push(e.message));
+const url='http://127.0.0.1:8765/test.html';await p.goto(url);await p.evaluate(()=>localStorage.setItem('yesimUstasi.v1',JSON.stringify({para:900000,gun:4,acik:[true,true,true,false,false],ilk:false,yuk:{depo:6}})));await p.goto(url);await p.waitForTimeout(1500);
+const say=async()=>(await p.$$eval('#icerik .kart.satici .minik canvas',x=>x.length));
+console.log('başta taş:',await say());
+await p.click('#icerik .kart.satici');await p.waitForTimeout(200);await (await p.$$('#kagit .kart'))[0].click();await p.waitForTimeout(200);await p.click('#kagit >> text=Satın al');await p.waitForTimeout(200);
+console.log('aldıktan sonra:',await say());
+await p.click('.cip:has-text("Ocak Çarşısı")');await p.waitForTimeout(200);await p.click('.cip:has-text("Sokak Pazarı")');await p.waitForTimeout(200);
+console.log('pazar değiştirip dönünce:',await say());
+await p.reload();await p.waitForTimeout(1500);console.log('sayfa yenilenince:',await say());
+console.log('HATALAR',JSON.stringify(hat));await b.close();})();

@@ -1,4 +1,4 @@
-import re
+import re,os
 s=open('kaynak.html',encoding='utf8').read()
 s=s.replace("// ================= DURUM =================","var FG=\"'Alegreya Sans',sans-serif\",FB=\"'Alegreya SC',serif\",FM=\"'Ma Shan Zheng',serif\";\n// ================= DURUM =================",1)
 for k,v in [("getComputedStyle(document.body).getPropertyValue('--f-govde')","FG"),("getComputedStyle(document.body).getPropertyValue('--f-bas')","FB"),("getComputedStyle(document.body).getPropertyValue('--f-muhur')","FM")]: s=s.replace(k,v)
@@ -13,6 +13,7 @@ s=s.replace("/*MANTIK*/",open('mantik.js',encoding='utf8').read().replace("if(ty
 open('yesim_ustasi.html','w',encoding='utf8').write(s)
 for i,x in enumerate(re.findall(r'<script>(.*?)</script>',s,re.S)): open(f'_s{i}.js','w').write(x)
 open('test.html','w',encoding='utf8').write('<!doctype html><html><head><meta charset="utf-8"><script>if(!window.__girisTest)window.__girisAtla=1;</script><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style></head><body>'+s+'</body></html>')
+if os.path.isdir('../www'):open('../www/test.html','w',encoding='utf8').write(open('test.html',encoding='utf8').read())  # testler www/ klasöründen sunulur (görseller orada)
 print(len(s)//1024,'KB')
 # Android (Capacitor) için tam sayfa: ../yesim-android/www/index.html ya da (depo içinde çalışırken) ../www/index.html
 import os

@@ -31,4 +31,4 @@ def kes(t,boy=320):
 k=0
 for j in range(SAT):
   for i in range(4):
-    t=im.crop((xs[i]+6,ys[j]+6,xs[i+1]-6,ys[j+1]-6));kes(t).save('../gorsel/urun_'+ADLAR[k]+'.webp','WEBP',quality=88,method=6);print('urun_'+ADLAR[k]);k+=1
+    t=im.crop((xs[i]+6,ys[j]+6,xs[i+1]-6,ys[j+1]-6));kes(t).save('../www/gorsel/urun_'+ADLAR[k]+'.webp','WEBP',quality=88,method=6);print('urun_'+ADLAR[k]);k+=1

@@ -1,0 +1,13 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:844},locale:'tr-TR'});const hat=[];p.on('pageerror',e=>hat.push(e.message));await p.addInitScript(()=>{window.__test=1;});const url='http://127.0.0.1:8765/test.html';
+await p.goto(url);await p.evaluate(()=>localStorage.setItem('yesimUstasi.v1',JSON.stringify({para:900000,gun:4,ilk:false,egitim:'bitti',elmas:30,acik:[true,true,true,false,false,false,false,false],ekran:'atolye',yuk:{makine:3,cila:24},taslar:[{id:'t1',seed:185,bolge:2,sat:1,odenen:9000,fener:[],fire:0}],sec:'t1'})));
+await p.goto(url);await p.waitForTimeout(1800);const D=f=>p.evaluate(f=>window.__dbg(f),f.toString());
+await p.click('#icerik .satir .btn-ana');await p.waitForTimeout(600);await p.click('#icerik .btn-yesim');await p.waitForTimeout(400);
+console.log('çip sayısı: normal',await p.locator('.urunCip:not(.kalipCip)').count(),'kalıplı',await p.locator('.kalipCip').count(),'reklamlı',await p.locator('.rekEt').count());
+await p.click('.urunCip:has-text("Kelebek broş")');await p.waitForTimeout(300);
+const yer=await D(function(){var st=seciliTas(),y=yerBul(st,urunBul('kelebek'),0,2);var A=tasAlan(st);return y?{x:A.x+(y.u+1)/2*A.w,y:A.y+(y.v+1)/2*A.h}:null;});
+const bb=await (await p.$('#sahne')).boundingBox();await p.mouse.click(bb.x+yer.x,bb.y+yer.y);await p.waitForTimeout(500);
+console.log('reklam ekranı açıldı:',await p.evaluate(()=>!document.querySelector('#reklam').hidden));await p.waitForTimeout(6000);
+console.log('sonra:',await p.textContent('#haber'),'| parça:',await D(function(){return (seciliTas().parcalar||[]).map(function(x){return x.t;}).join(',');}));
+await p.click('button:has-text("Otomatik yerleştir")');await p.waitForTimeout(600);console.log('öneride reklamlı ürün var mı:',await D(function(){return otoOneri.plan.some(function(q){return urunBul(q.t).reklam;});}));
+console.log('HATALAR',JSON.stringify(hat));await b.close();})();

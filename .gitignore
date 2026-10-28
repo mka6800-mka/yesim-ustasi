@@ -5,3 +5,7 @@ node_modules/
 oyun/_s*.js
 oyun/test.html
 oyun/yesim_ustasi.html
+www/test.html
+oyun/test/*.png
+oyun/test/eksik.json
+oyun/test/literaller.json

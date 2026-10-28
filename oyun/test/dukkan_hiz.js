@@ -1,0 +1,13 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:844},deviceScaleFactor:2,locale:'tr-TR'});
+await p.addInitScript(()=>{window.__profil={};});
+const cdp=await p.context().newCDPSession(p);await cdp.send('Emulation.setCPUThrottlingRate',{rate:6});
+const url='http://127.0.0.1:8765/test.html';await p.goto(url);
+await p.evaluate(()=>{const ts=['kupe','yuzuk','kolye','bileklik','plaka','heykel'];const u=[];for(let i=0;i<90;i++)u.push({id:'u'+i,t:ts[i%6],ad:'Bileklik',tur:i%14,g:0.4,deger:1500+i*37});
+ localStorage.setItem('yesimUstasi.v1',JSON.stringify({para:5000000,gun:30,bolge:2,acik:[true,true,true,false,false,false,false,false],ilk:false,dukkan:true,yuk:{eleman:3,tabela:10,vitrin:6,isik:5,cila:5},urunler:u,vitrin:[],taslar:[],ekran:'dukkan',un:60000,olay:'turist'}));});
+await p.goto(url);await p.waitForTimeout(3000);
+await p.evaluate(()=>{for(const k in window.__profil)delete window.__profil[k];window.__uzun=[];new PerformanceObserver(l=>{l.getEntries().forEach(e=>window.__uzun.push(Math.round(e.duration)));}).observe({type:'longtask'});});
+const r=await p.evaluate(()=>new Promise(res=>{let n=0,en=0,son=performance.now();const t0=performance.now();function f(t){n++;en=Math.max(en,t-son);son=t;if(t-t0<25000)requestAnimationFrame(f);else res({fps:(n/25).toFixed(1),enUzunKare:Math.round(en)});}requestAnimationFrame(f);}));
+const P=await p.evaluate(()=>window.__profil),uz=await p.evaluate(()=>window.__uzun);
+console.log('dükkânda 25 sn:',JSON.stringify(r));Object.entries(P).sort((a,b)=>b[1].top-a[1].top).slice(0,8).forEach(([k,o])=>console.log(' ',k.padEnd(12),'çağrı',o.n,'toplam',o.top.toFixed(0),'en uzun',o.en.toFixed(0)));
+console.log('uzun görevler:',JSON.stringify(uz),'satılan:',await p.evaluate(()=>JSON.parse(localStorage.getItem('yesimUstasi.v1')).ist.satilan));await b.close();})();

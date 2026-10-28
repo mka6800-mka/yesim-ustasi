@@ -1,0 +1,10 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:844}});const hat=[];p.on('pageerror',e=>hat.push(e.message));await p.addInitScript(()=>{window.__test=1;});const url='http://127.0.0.1:8765/test.html';
+await p.goto(url);await p.evaluate(()=>localStorage.setItem('yesimUstasi.v1',JSON.stringify({para:900000,gun:4,ilk:false,egitim:'bitti',elmas:100,acik:[true,true,true,false,false,false,false,false],ekran:'atolye',yuk:{makine:3,cila:5},taslar:[{id:'t1',seed:185,bolge:2,sat:1,odenen:9000,fener:[],fire:0}],sec:'t1'})));
+await p.goto(url);await p.waitForTimeout(1800);const D=f=>p.evaluate(f=>window.__dbg(f),f.toString());
+await D(function(){['impyuzuk','boncukkolye','ejderbilezik'].forEach(function(k){G['urun_'+k]=G.urun_yuzuk;});goster('atolye');});
+await p.click('#icerik .satir .btn-ana');await p.waitForTimeout(600);await p.click('#icerik .btn-yesim');await p.waitForTimeout(400);
+console.log('kalıp çipleri:',await p.evaluate(()=>[...document.querySelectorAll('.kalipCip')].map(x=>x.innerText.replace(/\n/g,' ')).join(' | ')));
+await p.click('.kalipCip >> nth=0');await p.waitForTimeout(300);console.log(await p.textContent('#haber'),JSON.stringify(await D(function(){return {elmas:S.elmas,kalip:S.kalip,kullanilir:urunKullanilir(urunBul('impyuzuk'))};})));
+await D(function(){elmasDukkan('kalici');});await p.waitForTimeout(300);await p.screenshot({path:'kalip.png'});
+console.log('HATALAR',JSON.stringify(hat));await b.close();})();

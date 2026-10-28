@@ -1,0 +1,6 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:844},locale:'tr-TR'});const hat=[];p.on('pageerror',e=>hat.push(e.message));await p.addInitScript(()=>{window.__test=1;});const url='http://127.0.0.1:8765/test.html';
+await p.goto(url);await p.evaluate(()=>localStorage.setItem('yesimUstasi.v1',JSON.stringify({para:200000,gun:4,ilk:false,egitim:'bitti',acik:[true,true,true,false,false,false,false,false],taslar:[1,2,3].map(i=>({id:'t'+i,seed:i,bolge:0,sat:0,odenen:100,fener:[],fire:0}))})));await p.goto(url);await p.waitForTimeout(1800);
+const D=f=>p.evaluate(f=>window.__dbg(f),f.toString());
+const r=await D(function(){var sonuc={tas:0,urun:0,para:0,dolu:0},p0=S.para,n=0;for(var i=0;i<10;i++){var t0=S.taslar.length,u0=S.urunler.length;var h0=S.para;kutuAc(false);perdeKapat();if(S.taslar.length>t0)sonuc.tas++;else if(S.urunler.length>u0)sonuc.urun++;else if(S.para!==h0-0)sonuc.para++;n++;}return JSON.stringify({sonuc:sonuc,acilan:S.ist.kutu,kalan:kutuKalan(),depo:depoMax(),taslar:S.taslar.length});});
+console.log(r,'| haber:',await p.textContent('#haber'));console.log('HATALAR',JSON.stringify(hat));await b.close();})();

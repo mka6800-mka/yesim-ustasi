@@ -20,7 +20,7 @@ def kes(a,boy=360):
   for c in (0,2):b[...,c]=b[...,c]*(1-tasma)+b[...,1]*tasma
   out=Image.fromarray(np.dstack([b,al]).clip(0,255).astype(np.uint8),'RGBA');out=out.crop(out.getbbox())
   r=boy/max(out.size);return out.resize((max(1,int(out.width*r)),max(1,int(out.height*r))),Image.LANCZOS)
-hedef=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','gorsel')
+hedef=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','www','gorsel')
 k=0
 for j in range(SAT):
   for i in range(SUT):

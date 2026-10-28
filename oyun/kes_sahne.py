@@ -8,7 +8,7 @@ def orta(p,n):
   d=[i for i in range(int(n*0.4),int(n*0.6)) if p[i]<45];return (min(d)+max(d))//2 if d else n//2
 cx_=orta(np.median(a,axis=0),W);cy_=orta(np.median(a,axis=1),H)
 for ad,(x0,y0,x1,y1) in zip(['pazar','dukkan','atolye','galeri'],[(0,0,cx_,cy_),(cx_,0,W,cy_),(0,cy_,cx_,H),(cx_,cy_,W,H)]):
-  t=im.crop((x0+5,y0+5,x1-5,y1-5));t=t.resize((1024,int(1024*t.height/t.width)),Image.LANCZOS);t.save('../gorsel/sahne_'+ad+'.webp','WEBP',quality=80,method=6);print('sahne_'+ad)
+  t=im.crop((x0+5,y0+5,x1-5,y1-5));t=t.resize((1024,int(1024*t.height/t.width)),Image.LANCZOS);t.save('../www/gorsel/sahne_'+ad+'.webp','WEBP',quality=80,method=6);print('sahne_'+ad)
 if len(sys.argv)>2:
   t=Image.open(sys.argv[2]).convert('RGB');b=np.asarray(t).astype(float);L=b.mean(2);sat=(b.max(2)-b.min(2))/255
   bg=(L>236)&(sat<0.06);lab,n=nd.label(bg);sz=nd.sum(bg,lab,range(1,n+1))
@@ -17,4 +17,4 @@ if len(sys.argv)>2:
   obj=~np.isin(lab,sil);obj=nd.binary_opening(obj,iterations=2)
   H2=obj.shape[0];yy=np.arange(H2)[:,None];obj&=~((yy>H2*0.85)&(L>150)&(sat<0.1))   # ayak altındaki açık gri gölge
   obj=nd.binary_opening(obj,iterations=2)
-  o=Image.fromarray(np.dstack([b,obj*255]).astype(np.uint8),'RGBA');o=o.crop(o.getbbox());o.thumbnail((700,700));o.save('../gorsel/tezgah.webp','WEBP',quality=85,method=6);print('tezgah')
+  o=Image.fromarray(np.dstack([b,obj*255]).astype(np.uint8),'RGBA');o=o.crop(o.getbbox());o.thumbnail((700,700));o.save('../www/gorsel/tezgah.webp','WEBP',quality=85,method=6);print('tezgah')
